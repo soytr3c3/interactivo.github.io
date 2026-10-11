@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Tipografía Fredoka: Gruesa, moderna y ultra legible en streaming -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: transparent !important;
+      overflow: hidden;
+      font-family: 'Fredoka', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Columna Vertical de 3 elementos (uno arriba del otro) */
+    .grid-3-vertical {
+      display: grid;
+      grid-template-columns: 1fr; /* 1 sola columna de ancho */
+      gap: 20px; /* Espacio vertical entre cada item */
+      justify-items: center;
+      align-items: center;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .grid-3-vertical.oculto {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    /* Tarjeta Horizontal (Icono a la izquierda, detalles a la derecha) */
+    .item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      width: 360px;
+      gap: 16px;
+    }
+
+    /* Icono del Regalo (Izquierda) */
+    .item .img-box {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .item .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.9));
+    }
+
+    /* Contenedor de Detalles (Derecha) */
+    .item .info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    /* 1. Nombre del regalo (Arriba - Blanco Grande) */
+    .item .titulo {
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1.1;
+      text-shadow: 
+        2px 2px 0 #000,
+       -2px -2px 0 #000,
+        2px -2px 0 #000,
+       -2px 2px 0 #000,
+        0px 4px 10px rgba(0, 0, 0, 0.95);
+      text-align: left;
+      margin-bottom: 2px;
+    }
+
+    /* 2. Efecto / Descripción (Centro - Azul Aqua Grande) */
+    .item .subtitulo {
+      color: #00f2fe;
+      font-weight: 900;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      line-height: 1.1;
+      text-shadow: 
+        2px 2px 0 #000,
+       -2px -2px 0 #000,
+        2px -2px 0 #000,
+       -2px 2px 0 #000,
+        0px 4px 10px rgba(0, 0, 0, 0.95);
+      text-align: left;
+      margin-bottom: 4px;
+    }
+
+    /* 3. Contenedor de Moneda y Precio (Abajo - Dorado Destacado) */
+    .item .precio-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .item .precio-box img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.9));
+    }
+
+    .item .precio-box span {
+      color: #ffea00;
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: 0.8px;
+      line-height: 1;
+      text-shadow: 
+        2px 2px 0 #000,
+       -2px -2px 0 #000,
+        2px -2px 0 #000,
+       -2px 2px 0 #000,
+        0px 4px 10px rgba(0, 0, 0, 0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="grid-3-vertical" id="contenedor"></div>
+  </div>
+
+  <script>
+    // TUS 17 REGALOS EXTRAÍDOS DEL ARCHIVO PROPORCIONADO
+    const regalos = [
+      { archivo: "regalos/rosa.png", nombre: "Rosa", descripcion: "x5 Zombis", monedas: 1 },
+      { archivo: "regalos/fuegos artificiales.png", nombre: "fuegos artificiales", descripcion: "luz roja luz verde", monedas: 5 },
+      { archivo: "regalos/GG.png", nombre: "GG", descripcion: "Perk Random", monedas: 1 },
+      { archivo: "regalos/Corazon Coreano.png", nombre: "corazón Coreano", descripcion: "quitar una perk", monedas: 5 },
+      { archivo: "regalos/Globos.png", nombre: "Globos", descripcion: "Quitar puntos", monedas: 10 },
+      { archivo: "regalos/Maracas.png", nombre: "Maracas", descripcion: "Doble puntuación", monedas: 1 },
+      { archivo: "regalos/maravilla del bosque.png", nombre: "maravilla del bosque", descripcion: "Quitar Mejora de Arma", monedas: 30 },
+      { archivo: "regalos/Rosa Blanca.png", nombre: "Rosa Blanca", descripcion: "Munición Máxima", monedas: 1 },
+      { archivo: "regalos/alas de guardian.png", nombre: "Alas de Guardián", descripcion: "Arma aleatoria", monedas: 1 },
+      { archivo: "regalos/Pastel.png", nombre: "Pastel", descripcion: "Muerte Instantánea", monedas: 1 },
+      { archivo: "regalos/pop.png", nombre: "pop", descripcion: "Kaboom", monedas: 1 },
+      { archivo: "regalos/Te Adoro.png", nombre: "Te Adoro", descripcion: "potenciador aleatorio", monedas: 1 },
+      { archivo: "regalos/Corazón.png", nombre: "Corazón", descripcion: "Controles Congelados", monedas: 10 },
+      { archivo: "regalos/dedos divinos.png", nombre: "dedos divinos", descripcion: "subir siguiente ronda", monedas: 6 },
+      { archivo: "regalos/Capibara.png", nombre: "Capibara", descripcion: "subir a Ronda 50", monedas: 30 },
+      { archivo: "regalos/Dona.png", nombre: "Dona", descripcion: "Me quita todas las perks", monedas: 30 },
+      { archivo: "regalos/Perfume.png", nombre: "Perfume", descripcion: "Aparece jefe", monedas: 20 },
+      { archivo: "regalos/collar de amistad.png", nombre: "collar de amistad", descripcion: "Ruleta extrema", monedas: 10 }
+    ];
+
+
+    const contenedor = document.getElementById('contenedor');
+    let indiceActual = 0;
+    const tiempoVisibilidad = 6000;
+
+    function mostrarSiguienteGrupo() {
+      contenedor.classList.add('oculto');
+
+      setTimeout(() => {
+        let grupo = regalos.slice(indiceActual, indiceActual + 3);
+
+        if (grupo.length < 3) {
+          const faltantes = 3 - grupo.length;
+          const disponibles = regalos.filter(r => !grupo.includes(r));
+          const aleatorios = disponibles.sort(() => 0.5 - Math.random()).slice(0, faltantes);
+          grupo = [...grupo, ...aleatorios];
+        }
+
+        contenedor.innerHTML = grupo.map(item => `
+          <div class="item">
+            <div class="img-box">
+              <img src="${encodeURI(item.archivo)}" alt="Regalo">
+            </div>
+            <div class="info">
+              <span class="titulo">${item.nombre}</span>
+              <span class="subtitulo">${item.descripcion}</span>
+              <div class="precio-box">
+                <img src="regalos/moneda_tiktok.png" alt="moneda">
+                <span>${item.monedas}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        contenedor.classList.remove('oculto');
+
+        indiceActual += 3;
+        if (indiceActual >= regalos.length) {
+          indiceActual = 0;
+        }
+      }, 500);
+    }
+
+    mostrarSiguienteGrupo();
+    setInterval(mostrarSiguienteGrupo, tiempoVisibilidad);
+  </script>
+
+</body>
+</html>
