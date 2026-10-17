@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Tipografía Fredoka: Gruesa, moderna y ultra legible en streaming -->
+  <!-- Tipografia Fredoka: gruesa, moderna y muy legible en streaming -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;900&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: transparent !important;
@@ -31,11 +27,11 @@
       align-items: center;
     }
 
-    /* Columna Vertical de 3 elementos (uno arriba del otro) */
+    /* Columna vertical de 3 elementos (uno arriba del otro) */
     .grid-3-vertical {
       display: grid;
-      grid-template-columns: 1fr; /* 1 sola columna de ancho */
-      gap: 20px; /* Espacio vertical entre cada item */
+      grid-template-columns: 1fr;
+      gap: 20px;
       justify-items: center;
       align-items: center;
       transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
@@ -43,12 +39,9 @@
       transform: scale(1);
     }
 
-    .grid-3-vertical.oculto {
-      opacity: 0;
-      transform: scale(0.95);
-    }
+    .grid-3-vertical.oculto { opacity: 0; transform: scale(0.95); }
 
-    /* Tarjeta Horizontal (Icono a la izquierda, detalles a la derecha) */
+    /* Tarjeta horizontal (icono a la izquierda, detalles a la derecha) */
     .item {
       display: flex;
       flex-direction: row;
@@ -58,7 +51,6 @@
       gap: 16px;
     }
 
-    /* Icono del Regalo (Izquierda) */
     .item .img-box {
       width: 100px;
       height: 100px;
@@ -75,7 +67,6 @@
       filter: drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.9));
     }
 
-    /* Contenedor de Detalles (Derecha) */
     .item .info {
       display: flex;
       flex-direction: column;
@@ -83,7 +74,7 @@
       justify-content: center;
     }
 
-    /* 1. Nombre del regalo (Arriba - Blanco Grande) */
+    /* 1. Nombre del regalo (blanco) */
     .item .titulo {
       color: #ffffff;
       font-weight: 900;
@@ -91,7 +82,7 @@
       text-transform: uppercase;
       letter-spacing: 0.8px;
       line-height: 1.1;
-      text-shadow: 
+      text-shadow:
         2px 2px 0 #000,
        -2px -2px 0 #000,
         2px -2px 0 #000,
@@ -101,7 +92,7 @@
       margin-bottom: 2px;
     }
 
-    /* 2. Efecto / Descripción (Centro - Azul Aqua Grande) */
+    /* 2. Efecto / descripcion (azul aqua) */
     .item .subtitulo {
       color: #00f2fe;
       font-weight: 900;
@@ -109,7 +100,7 @@
       text-transform: uppercase;
       letter-spacing: 0.6px;
       line-height: 1.1;
-      text-shadow: 
+      text-shadow:
         2px 2px 0 #000,
        -2px -2px 0 #000,
         2px -2px 0 #000,
@@ -119,12 +110,8 @@
       margin-bottom: 4px;
     }
 
-    /* 3. Contenedor de Moneda y Precio (Abajo - Dorado Destacado) */
-    .item .precio-box {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    /* 3. Moneda y precio (dorado) */
+    .item .precio-box { display: flex; align-items: center; gap: 6px; }
 
     .item .precio-box img {
       width: 26px;
@@ -139,7 +126,7 @@
       font-size: 24px;
       letter-spacing: 0.8px;
       line-height: 1;
-      text-shadow: 
+      text-shadow:
         2px 2px 0 #000,
        -2px -2px 0 #000,
         2px -2px 0 #000,
@@ -155,41 +142,144 @@
   </div>
 
   <script>
-    // TUS 17 REGALOS EXTRAÍDOS DEL ARCHIVO PROPORCIONADO
+    // REGALOS DE TU MATRIZ (generado por el programa)
     const regalos = [
-      { archivo: "regalos/Rosa.png", nombre: "Rosa", descripcion: "x5 Zombis", monedas: 1 },
-      { archivo: "regalos/Fuegos Artificiales.png", nombre: "fuegos artificiales", descripcion: "luz roja luz verde", monedas: 5 },
-      { archivo: "regalos/GG.png", nombre: "GG", descripcion: "Perk Random", monedas: 1 },
-      { archivo: "regalos/Corazon Coreano.png", nombre: "corazón Coreano", descripcion: "quitar una perk", monedas: 5 },
-      { archivo: "regalos/Globos.png", nombre: "Globos", descripcion: "Quitar puntos", monedas: 10 },
-      { archivo: "regalos/Maracas.png", nombre: "Maracas", descripcion: "Doble puntuación", monedas: 1 },
-      { archivo: "regalos/maravilla del bosque.png", nombre: "maravilla del bosque", descripcion: "Quitar Mejora de Arma", monedas: 30 },
-      { archivo: "regalos/Rosa Blanca.png", nombre: "Rosa Blanca", descripcion: "Munición Máxima", monedas: 1 },
-      { archivo: "regalos/alas de guardian.png", nombre: "Alas de Guardián", descripcion: "Arma aleatoria", monedas: 1 },
-      { archivo: "regalos/Pastel.png", nombre: "Pastel", descripcion: "Muerte Instantánea", monedas: 1 },
-      { archivo: "regalos/pop.png", nombre: "pop", descripcion: "Kaboom", monedas: 1 },
-      { archivo: "regalos/Te Adoro.png", nombre: "Te Adoro", descripcion: "potenciador aleatorio", monedas: 1 },
-      { archivo: "regalos/Corazón.png", nombre: "Corazón", descripcion: "Controles Congelados", monedas: 10 },
-      { archivo: "regalos/dedos divinos.png", nombre: "dedos divinos", descripcion: "subir siguiente ronda", monedas: 6 },
-      { archivo: "regalos/Capibara.png", nombre: "Capibara", descripcion: "subir a Ronda 50", monedas: 30 },
-      { archivo: "regalos/Dona.png", nombre: "Dona", descripcion: "Me quita todas las perks", monedas: 30 },
-      { archivo: "regalos/Perfume.png", nombre: "Perfume", descripcion: "Aparece jefe", monedas: 20 },
-      { archivo: "regalos/collar de amistad.png", nombre: "collar de amistad", descripcion: "Ruleta extrema", monedas: 10 }
-    ];
-
+  {
+    "archivo": "regalos/Rose.png",
+    "nombre": "Rosa",
+    "descripcion": "Aparecer zombis x5",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Wave Firework.png",
+    "nombre": "Fuegos Artificiales",
+    "descripcion": "Luz roja, luz verde",
+    "monedas": 5
+  },
+  {
+    "archivo": "regalos/GG.png",
+    "nombre": "GG",
+    "descripcion": "Dar una perk",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Finger Heart.png",
+    "nombre": "Corazòn Coreano",
+    "descripcion": "Quitar una perk",
+    "monedas": 5
+  },
+  {
+    "archivo": "regalos/Perfume.png",
+    "nombre": "Perfume",
+    "descripcion": "Aparece jefe",
+    "monedas": 20
+  },
+  {
+    "archivo": "regalos/Balloons.png",
+    "nombre": "Globos",
+    "descripcion": "Quitar todos los puntos",
+    "monedas": 10
+  },
+  {
+    "archivo": "regalos/Maracas.png",
+    "nombre": "Maracas",
+    "descripcion": "Puntos dobles",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Woodland Wonder.png",
+    "nombre": "Maravilla del Bosque",
+    "descripcion": "Pack-a-Punch: bajar arma",
+    "monedas": 30
+  },
+  {
+    "archivo": "regalos/White Rose.png",
+    "nombre": "Rosa Blanca",
+    "descripcion": "Munición máxima",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Guardian Wings.png",
+    "nombre": "Alas Guardianes",
+    "descripcion": "Arma aleatoria",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Cake Slice.png",
+    "nombre": "Cake Slice",
+    "descripcion": "Muerte instantánea",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Pop.png",
+    "nombre": "Pop",
+    "descripcion": "Kaboom",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Love you so much.png",
+    "nombre": "Te Adoro",
+    "descripcion": "Powerup aleatorio",
+    "monedas": 1
+  },
+  {
+    "archivo": "regalos/Heart.png",
+    "nombre": "Corazòn",
+    "descripcion": "Controles congelados",
+    "monedas": 10
+  },
+  {
+    "archivo": "regalos/Capybara.png",
+    "nombre": "Capibara",
+    "descripcion": "Ir a la ronda 50",
+    "monedas": 30
+  },
+  {
+    "archivo": "regalos/Doughnut.png",
+    "nombre": "Doughnut",
+    "descripcion": "Quitar todas las perks",
+    "monedas": 30
+  },
+  {
+    "archivo": "regalos/Friendship Necklace.png",
+    "nombre": "Friendship Necklace",
+    "descripcion": "Ruleta: girar",
+    "monedas": 10
+  },
+  {
+    "archivo": "regalos/Divine Fingers.png",
+    "nombre": "Dedos Divinos",
+    "descripcion": "Saltar a la siguiente ronda",
+    "monedas": 6
+  },
+  {
+    "archivo": "regalos/Overreact.png",
+    "nombre": "Reaccion Exagerada",
+    "descripcion": "Arma especial",
+    "monedas": 5
+  },
+  {
+    "archivo": "regalos/It’s corn.png",
+    "nombre": "Mazorca",
+    "descripcion": "Arma especial",
+    "monedas": 1
+  }
+];
 
     const contenedor = document.getElementById('contenedor');
     let indiceActual = 0;
     const tiempoVisibilidad = 6000;
 
     function mostrarSiguienteGrupo() {
+      if (!regalos.length) return;
       contenedor.classList.add('oculto');
 
       setTimeout(() => {
         let grupo = regalos.slice(indiceActual, indiceActual + 3);
 
-        if (grupo.length < 3) {
-          const faltantes = 3 - grupo.length;
+        // Si quedan menos de 3 al final de la lista, se completa con otros al azar
+        if (grupo.length < 3 && regalos.length > grupo.length) {
+          const faltantes = Math.min(3 - grupo.length, regalos.length - grupo.length);
           const disponibles = regalos.filter(r => !grupo.includes(r));
           const aleatorios = disponibles.sort(() => 0.5 - Math.random()).slice(0, faltantes);
           grupo = [...grupo, ...aleatorios];
